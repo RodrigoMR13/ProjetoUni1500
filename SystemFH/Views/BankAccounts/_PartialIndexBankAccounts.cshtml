@@ -1,0 +1,60 @@
+﻿@model PaginationViewModel<BankAccount>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input id="checkCentral" type="checkbox" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Enterprise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().InitialBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ActualBalance)
+            </th>
+            <th>
+                <button type="button" id="botaoDeletar" style="border-color:transparent; background-color:transparent; display:none">
+                    <i class="fas fa-trash" style="color:red"></i>
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <input name="checkSelect" type="checkbox" value="@item.Id" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enterprise.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InitialBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActualBalance)
+                </td>
+                <td>
+                    <a class="btn btn-primary" style="font-size:x-small; margin:2px" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a class="btn btn-info" style="font-size:x-small; margin:2px" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    <a class="btn btn-danger" style="font-size:x-small; margin:2px" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_Pagination" />

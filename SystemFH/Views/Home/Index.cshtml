@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Página Inicial</h1>
+</div>
+<div class="card border border-primary" style="margin-left:150px; margin-right:150px">
+
+    <div class="text-center">
+        <h2>Menu de Navegação Rápida</h2>
+    </div>
+
+    <div class="row container" style="text-align:center; margin-left:200px;">
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="People" asp-action="Index" style="color:#27465f">
+                    <i class="fa fa-users"></i>
+                    Pessoas
+                    </a></h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="People" asp-action="Aluno" style="color:#27465f">
+                        <i class="fa fa-graduation-cap"></i>
+                        Alunos
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="People" asp-action="Professor" style="color:#27465f">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Professores
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container" style="text-align:center;margin-left:200px">
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Themes" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-book"></i>
+                        Temas
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Projects" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-project-diagram"></i>
+                        Projetos
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Circles" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Turmas
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container" style="text-align:center;margin-left:200px">
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="TypeConsultors" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-money-check-alt"></i>
+                        Tarifas
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:220px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Learnings" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-chalkboard"></i>
+                        Aprendizado
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Feedbacks" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-comment-dots"></i>
+                        Feedback
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container" style="text-align:center;margin-left:200px">
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="DayTimes" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-clock"></i>
+                        Horas/Dia
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="ActualStatus" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-spinner"></i>
+                        Status Atual
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Enterprises" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-building"></i>
+                        Empresas
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container" style="text-align:center;margin-left:200px">
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:250px">
+                <h3 style="margin:8px">
+                    <a asp-controller="CostCenters" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-door-closed"></i>
+                        Centro de Custo
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Accounts" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-user"></i>
+                        Contas
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="BankAccounts" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-piggy-bank"></i>
+                        Bancos
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container" style="text-align:center;margin-left:340px">
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:200px">
+                <h3 style="margin:8px">
+                    <a asp-controller="Categories" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-th-list"></i>
+                        Categorias
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="col-md-3" style="margin:15px">
+            <div class="card border border-primary" style="width:240px">
+                <h3 style="margin:8px">
+                    <a asp-controller="CashManagers" asp-action="Index" style="color:#27465f">
+                        <i class="fas fa-cash-register"></i>
+                        Gestão de Caixa
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>

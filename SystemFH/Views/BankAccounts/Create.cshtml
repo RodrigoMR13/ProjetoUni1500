@@ -1,0 +1,50 @@
+﻿@model SystemFH.Models.BankAccount
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="col-md card border border-primary">
+    <div style="margin:8px">
+        <h1>Novo</h1>
+        <h4>Banco</h4>
+        <hr class="border border-primary border-3 opacity-75" />
+        <div class="row">
+            <div class="col-md">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="InitialBalance" class="control-label"></label>
+                            <input asp-for="InitialBalance" class="form-control" />
+                            <span asp-validation-for="InitialBalance" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EnterpriseId" class="control-label"></label>
+                            <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId"></select>
+                        </div>
+                    </div>
+                    <hr class="border border-primary border-3 opacity-75" />
+                    <div class="col-md">
+                        <div class="row">
+                            <input type="submit" value="Salvar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <hr class="border border-primary border-3 opacity-75" />
+                </form>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

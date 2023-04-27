@@ -1,0 +1,74 @@
+﻿<div class="card-footer clearfix">
+    <select id="pageSizeSelect">
+        <option value="5"><a onclick="changePageSize(5)">5</a></option>
+        <option value="10"><a onclick="changePageSize(10)">10</a></option>
+        <option value="15"><a onclick="changePageSize(15)">15</a></option>
+        <option value="20"><a onclick="changePageSize(20)">20</a></option>
+    </select>
+
+    <ul class="pagination pagination-sm m-0 float-right">
+        @if (Model.PageNumber > 10)
+        {
+            <li class="page-item">
+                <a class="page-link" onclick="refreshTable(@(Model.PageNumber - 10), @(Model.PageSize)">
+                    &laquo;
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" onclick="refreshTable(1, @(Model.PageSize))">
+                    &laquo;
+                </a>
+            </li>
+        }
+        @{
+            var count = 0;
+            var initialCount = Math.Max(1, Model.PageNumber - 4);
+            @for (int i = initialCount; i <= Math.Ceiling(Model.TotalCount / (double)Model.PageSize); i++)
+            {
+                if (count < 9)
+                {
+                    if(i == Model.PageNumber)
+                    {
+                        <li class="page-item">
+                            <span class="page-link"><i class="fas fa-bars"></i></span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" onclick="refreshTable(@i, @(Model.PageSize))">
+                                @i
+                            </a>
+                        </li>
+                    }
+
+                    count += 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        @if (Model.PageNumber + 10 < Math.Ceiling(Model.TotalCount / (double)Model.PageSize))
+        {
+            <li class="page-item">
+                <a class="page-link" onclick="refreshTable(@(Model.PageNumber + 10), @(Model.PageSize))">
+                    &raquo;
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" onclick="refreshTable(@(Math.Ceiling(Model.TotalCount / (double)Model.PageSize)), @(Model.PageSize))">
+                    &raquo;
+                </a>
+            </li>
+        }
+    </ul>
+</div>

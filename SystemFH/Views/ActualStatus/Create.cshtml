@@ -1,0 +1,86 @@
+﻿@model SystemFH.Models.ActualStatus
+
+@{
+    ViewData["Title"] = "Novo";
+}
+<div class="col-md card border border-primary">
+    <div style="margin:8px">
+        <h1>Novo</h1>
+        <h4>Status Atual</h4>
+        <hr class="border border-primary border-3 opacity-75" />
+        <div class="row">
+            <div class="col-md">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for="CircleId" class="control-label"></label>
+                            <select asp-for="CircleId" class="form-control" asp-items="ViewBag.CircleId"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="ProjectId" class="control-label"></label>
+                            <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="TypeObject" class="control-label"></label>
+                            <select asp-for="TypeObject" class="form-control">
+                                <option>Selecione uma Opção</option>
+                                <option value="0">Gestão</option>
+                                <option value="1">ETL</option>
+                                <option value="2">DASH</option>
+                                <option value="3">BBP</option>
+                                <option value="4">Aula</option>
+                                <option value="5">Preparação da Aula</option>
+                                <option value="6">Desenvolvimento</option>
+                                <option value="7">Manutenção</option>
+                            </select>
+                            <span asp-validation-for="TypeObject" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label asp-for="TypeConsultorId" class="control-label"></label>
+                            <select asp-for="TypeConsultorId" class="form-control" asp-items="ViewBag.TypeConsultorId"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="TimePlanned" class="control-label"></label>
+                            <input asp-for="TimePlanned" class="form-control" />
+                            <span asp-validation-for="TimePlanned" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="PersonId" class="control-label"></label>
+                            <select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Sprint" class="control-label"></label>
+                            <input asp-for="Sprint" class="form-control" />
+                            <span asp-validation-for="Sprint" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr class="border border-primary border-3 opacity-75" />
+                    <div class="col-md">
+                        <div class="row">
+                            <input type="submit" value="Salvar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <hr class="border border-primary border-3 opacity-75" />
+                </form>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

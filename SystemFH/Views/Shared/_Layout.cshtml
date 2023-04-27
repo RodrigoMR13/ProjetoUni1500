@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema Mentoria</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini sidebar-collapse" style="height: auto;">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" , style="background-color:#27465f">
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="color:white"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
+                    </li>
+                </ul>
+            }
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <partial name="_LoginPartial" />
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt" style="color:white"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <!-- /.navbar -->
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar elevation-4" style="background-color:#27465f">
+                <!-- Brand Logo -->
+                <a class="brand-link">
+                    <img src="~/img/logo1500.png" class="img-size-50 mr-3">
+                    <span class="brand-text font-weight-light" style="color: white">Sistema Mentoria</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa fa-users" style="text-align: center; padding-right: 16px; color:white"></i>
+                                    <p style="color:white">
+                                        Cadastros
+                                        <i class="right fas fa-angle-left" style="color:white"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="People" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Pessoas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="People" asp-action="Aluno">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Aluno</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="People" asp-action="Professor">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Professor</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Themes" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Temas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Projects" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Projetos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Circles" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Turmas/Círculos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="TypeConsultors" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Tarifas</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa fa-folder" style="text-align: center; padding-right: 16px; color:white"></i>
+                                    <p style="color:white">
+                                        Atividades
+                                        <i class="right fas fa-angle-left" style="color:white"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Learnings" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Aprendizado</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Feedbacks" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Feedback</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="DayTimes" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Horas/Dia</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="ActualStatus" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Status Atual </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-hand-holding-usd" style="text-align: center; padding-right: 16px; color:white"></i>
+                                    <p style="color:white">
+                                        Financeiro
+                                        <i class="right fas fa-angle-left" style="color:white"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Enterprises" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Empresas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="CostCenters" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Centro de Custo</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Accounts" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Contas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="BankAccounts" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Bancos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Categories" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Categorias</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="CashManagers" asp-action="Index">
+                                            <i class="far fa-circle nav-icon" style="color:white"></i>
+                                            <p style="color:white">Gestão de Caixa</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+        }
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="min-height: 543px;">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-left">
+                                <!-- Timeline Buttons -->
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <div class="content">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark" style="display: none;">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <!-- Default to the left -->
+            <strong>Copyright © 2023 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>.</strong> Todos direitos reservados.
+        </footer>
+        <div id="sidebar-overlay"></div>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/js/adminlte.min.js"></script>
+
+    <!-- ORIGINAL SCRIPTS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

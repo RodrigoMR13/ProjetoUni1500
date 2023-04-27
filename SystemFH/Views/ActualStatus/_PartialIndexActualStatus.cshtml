@@ -1,0 +1,114 @@
+﻿@model PaginationViewModel<ActualStatus>
+
+@{
+    ViewData["Title"] = "Status Atual";
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <input id="checkCentral" type="checkbox" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Circle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeConsultor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TimePlanned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().RealTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Delivered)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Productivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Sprint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().FinalValue)
+            </th>
+            <th>
+                <button type="button" id="botaoDeletar" style="border-color:transparent; background-color:transparent; display:none">
+                    <i class="fas fa-trash" style="color:red"></i>
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <input name="checkSelect" type="checkbox" value="@item.Id" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Circle.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeObject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeConsultor.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimePlanned)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RealTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Delivered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Productivity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sprint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinalValue)
+                </td>
+                <td>
+                    <a class="btn btn-primary" style="font-size:x-small; margin:2px" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a class="btn btn-info" style="font-size:x-small; margin:2px" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    <a class="btn btn-danger" style="font-size:x-small; margin:2px" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_Pagination" />

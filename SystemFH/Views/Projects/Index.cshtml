@@ -1,0 +1,126 @@
+﻿@model PaginationViewModel<Project>
+
+@{
+    ViewData["Title"] = "Projetos";
+}
+<div class="col-md card border border-primary">
+    <div class="card-header">
+        <h1>Projetos / <a style="font-size:25px" asp-action="Create">Novo</a></h1>
+    </div>
+    <div id="container" style="margin:8px">
+        <partial name="_PartialIndexProjects" />
+    </div>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function initialFunction() {
+            $("#checkCentral").click(function () {
+                //Verifica se o botão que possui o id checkCentral foi pressionado
+                //Encontra todas as tags input que possuem a propriedade name = checkSelect
+                //Troca a propriedade checked pelo valor que o botão id checkCentral possui
+
+                $("input[name='checkSelect']").prop('checked', $(this).prop('checked'));
+
+                if ($(this).prop('checked')) {
+                    $("#botaoDeletar").show();
+                }
+                else {
+                    $("#botaoDeletar").hide();
+                }
+            });
+
+            $("input[name='checkSelect']").click(function () {
+                var idsSelecionados = $("input[name='checkSelect']:checked").length;
+
+                if ($(this).is(':checked') || idsSelecionados > 0) {
+                    $("#botaoDeletar").show(); //style="display:initial"
+                }
+                else {
+                    $("#botaoDeletar").hide(); //style="display:none"
+                    $("checkCentral").prop('checked', false);
+                }
+
+                if (idsSelecionados < $("input[name='checkSelect']").length) {
+                    $("#checkCentral").prop('checked', false);
+                }
+                else {
+                    $("#checkCentral").prop('checked', true);
+                }
+            });
+
+            $("#botaoDeletar").click(function () {
+                var idsSelecionados = $("input[name='checkSelect']:checked").map(function () {
+                    return $(this).val();
+                }).get();
+                //Map: é como um foreach para arrays
+                //Gera uma informação nova
+
+                //Via HTML
+                if (idsSelecionados.length > 0) {
+                    if (confirm("Você tem certeza de que deseja deletar este(s) registro(s)?")) {
+                        $.ajax({
+                            url: '@Url.Action("MultipleDelete", "Projects")',
+                            type: 'POST',
+                            data: { ids: idsSelecionados }, //Passa na URl as informações
+                            success: function () {
+                                location.reload()
+                            },
+                            error: function () {
+                                alert("Um erro ocorreu ao tentar deletar estes(s) registro(s).")
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Por favor, selecione pelo menos um item para ser deletado")
+                }
+            });
+
+            $("#pageSizeSelect").on("change", function () {
+                var pageSize = $(this).val();
+                changePageSize(pageSize);
+            });
+        }
+
+        $(document).ready(function () {
+            initialFunction();
+        });
+
+        function refreshTable(pageNumber, pageSize) {
+            $.ajax({
+                url: '@Url.Action("PartialIndex", "Projects")',
+                type: 'GET',
+                data: { pageNumber: pageNumber, pageSize: pageSize },
+                success: function (data) {
+                    $("#container").html(data);
+                    initialFunction();
+                },
+                error: function () {
+                    alert("Um erro ocorreu ao tentar atualizar a tabela")
+                }
+            });
+        }
+
+        function changePageSize(pageSize) {
+            $.ajax({
+                url: '@Url.Action("PartialIndex", "Projects")',
+                type: 'GET',
+                data: { pageSize: pageSize },
+                success: function (data) {
+                    $("#container").html(data);
+                    initialFunction();
+                },
+                error: function () {
+                    alert("Um erro ocorreu ao tentar atualizar a tabela")
+                }
+            });
+        }
+    </script>
+}
+
