@@ -1,59 +1,78 @@
-﻿@model PaginationViewModel<Project>
+﻿@model IEnumerable<Project>
 
 @{
     ViewData["Title"] = "Projetos";
 }
 
-<table class="table table-hover">
+<table id="myTable" class="table table-hover">
     <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeConsultor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enterprise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot style="display: table-header-group">
         <tr>
             <th>
                 <input id="checkCentral" type="checkbox" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeConsultor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Enterprise)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Status)
             </th>
             <th>
                 <button type="button" id="botaoDeletar" style="border-color:transparent; background-color:transparent; display:none">
                     <i class="fas fa-trash" style="color:red"></i>
                 </button>
             </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
-    </thead>
+    </tfoot>
     <tbody>
-        @foreach (var item in Model.Items)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
                     <input name="checkSelect" type="checkbox" value="@item.Id" />
                 </td>
+                <td></td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -93,4 +112,4 @@
         }
     </tbody>
 </table>
-<partial name="_Pagination" />
+@*<partial name="_Pagination" />*@

@@ -1,68 +1,94 @@
-﻿@model PaginationViewModel<ActualStatus>
+﻿@model IEnumerable<ActualStatus>
 
 @{
     ViewData["Title"] = "Status Atual";
 }
 
-<table class="table table-hover">
+<table id="myTable" class="table table-hover">
     <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Circle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeConsultor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimePlanned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RealTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivered)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Productivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sprint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinalValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot style="display: table-header-group">
         <tr>
             <th>
                 <input id="checkCentral" type="checkbox" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Circle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Project)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeObject)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TypeConsultor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().TimePlanned)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Person)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().RealTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Delivered)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Productivity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Sprint)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().FinalValue)
             </th>
             <th>
                 <button type="button" id="botaoDeletar" style="border-color:transparent; background-color:transparent; display:none">
                     <i class="fas fa-trash" style="color:red"></i>
                 </button>
             </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
-    </thead>
+    </tfoot>
     <tbody>
-        @foreach (var item in Model.Items)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
                     <input name="checkSelect" type="checkbox" value="@item.Id" />
                 </td>
+                <td></td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Circle.Name)
                 </td>
@@ -103,12 +129,16 @@
                     @Html.DisplayFor(modelItem => item.FinalValue)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
                     <a class="btn btn-primary" style="font-size:x-small; margin:2px" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
                     <a class="btn btn-info" style="font-size:x-small; margin:2px" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                     <a class="btn btn-danger" style="font-size:x-small; margin:2px" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                    <a class="btn btn-success" style="font-size:x-small; margin:2px" asp-controller="CashManagers" asp-action="Bill" asp-route-id="@item.Id">Faturar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<partial name="_Pagination" />
+@*<partial name="_Pagination" />*@

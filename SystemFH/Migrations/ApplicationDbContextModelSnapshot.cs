@@ -242,6 +242,9 @@ namespace SystemFH.Migrations
                     b.Property<string>("University")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -270,6 +273,9 @@ namespace SystemFH.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -319,6 +325,9 @@ namespace SystemFH.Migrations
                     b.Property<int>("TypeObject")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<float>("Value")
                         .HasColumnType("real");
 
@@ -353,6 +362,9 @@ namespace SystemFH.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -410,10 +422,16 @@ namespace SystemFH.Migrations
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PlanReal")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RealizationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<float>("Value")
@@ -446,6 +464,9 @@ namespace SystemFH.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Category");
@@ -461,6 +482,9 @@ namespace SystemFH.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Circles");
@@ -475,6 +499,9 @@ namespace SystemFH.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -499,6 +526,9 @@ namespace SystemFH.Migrations
 
                     b.Property<float>("RealTime")
                         .HasColumnType("real");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -525,6 +555,9 @@ namespace SystemFH.Migrations
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -554,6 +587,9 @@ namespace SystemFH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ThemeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -597,6 +633,9 @@ namespace SystemFH.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ThemeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -692,6 +731,9 @@ namespace SystemFH.Migrations
                     b.Property<int>("TypeConsultorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<float>("Value")
                         .HasColumnType("real");
 
@@ -715,6 +757,9 @@ namespace SystemFH.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Themes");
@@ -737,6 +782,9 @@ namespace SystemFH.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

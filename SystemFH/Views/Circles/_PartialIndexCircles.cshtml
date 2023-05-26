@@ -1,27 +1,31 @@
-﻿@model PaginationViewModel<Circle>
+﻿@model IEnumerable<Circle>
 
 @{
     ViewData["Title"] = "Turmas";
 }
 
+<button type="button" id="botaoDeletar" style="border-color:transparent; background-color:transparent; display:none">
+    <i class="fas fa-trash" style="color:red"></i>
+</button>
 <table id="myTable" class="table table-hover">
     <thead>
         <tr>
             <th>
                 <input id="checkCentral" type="checkbox" />
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Name)
-            </th>
-            <th>
+            @*<th>
                 <button type="button" id="botaoDeletar" style="border-color:transparent; background-color:transparent; display:none">
                     <i class="fas fa-trash" style="color:red"></i>
                 </button>
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Items)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -35,9 +39,8 @@
                     <a class="btn btn-info" style="font-size:x-small; margin:2px" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                     <a class="btn btn-danger" style="font-size:x-small; margin:2px" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
                 </td>
-                <td></td>
             </tr>
         }
     </tbody>
 </table>
-<partial name="_Pagination" />
+@*<partial name="_Pagination" />*@

@@ -22,55 +22,55 @@ namespace SystemFH.Controllers
         }
 
         // GET: BankAccounts
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            int totalCount = _context.BankAccounts.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
             var data = await _context.BankAccounts
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(b => b.CashManagers)
                 .Include(b => b.Enterprise)
                 .ToListAsync();
 
             data.ForEach(x => x.AttCalculos());
 
-            var viewModel = new PaginationViewModel<BankAccount>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-            int totalCount = _context.BankAccounts.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
             var data = await _context.BankAccounts
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(b => b.CashManagers)
                 .Include(b => b.Enterprise)
                 .ToListAsync();
 
             data.ForEach(x => x.AttCalculos());
 
-            var viewModel = new PaginationViewModel<BankAccount>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexBankAccounts", viewModel);
+            return PartialView("_PartialIndexBankAccounts", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.BankAccounts.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.BankAccounts
+        //        .Where(x => x.Name.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .Include(b => b.CashManagers)
+        //        .Include(b => b.Enterprise)
+        //        .ToListAsync();
+
+        //    data.ForEach(x => x.AttCalculos());
+
+        //    var viewModel = new PaginationViewModel<BankAccount>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexBankAccounts", viewModel);
+        //}
 
         // GET: BankAccounts/Details/5
         public async Task<IActionResult> Details(int? id)

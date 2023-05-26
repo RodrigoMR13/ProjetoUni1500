@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using SystemFH.Data;
 using SystemFH.Models;
 
@@ -22,47 +24,53 @@ namespace SystemFH.Controllers
         }
 
         // GET: Projects
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            int totalCount = _context.Project.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
             var data = await _context.Project
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(p => p.TypeConsultor)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Project>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-            int totalCount = _context.Project.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
             var data = await _context.Project
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(p => p.TypeConsultor)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Project>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexProjects", viewModel);
+            return PartialView("_PartialIndexProjects", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.Project.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+        //    var data = await _context.Project
+        //        .Where(x => x.Name.Contains(searchValue.ToLower())
+        //                    || x.Type.ToString().Contains(searchValue.ToLower())
+        //                    || x.TypeConsultor.Name.Contains(searchValue.ToLower())
+        //                    || x.Description.Contains(searchValue.ToLower())
+        //                    || x.Enterprise.Contains(searchValue.ToLower())
+        //                    || x.Duration.ToString().Contains(searchValue.ToLower())
+        //                    || x.Value.ToString().Contains(searchValue.ToLower())
+        //                    || x.StartDate.ToString().Contains(searchValue.ToLower())
+        //                    || x.EndDate.ToString().Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .Include(p => p.TypeConsultor)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Project>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexProjects", viewModel);
+        //}
 
         // GET: Projects/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -21,51 +21,43 @@ namespace SystemFH.Controllers
         }
 
         // GET: CostCenters
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            var data = await _context.CostCenter.ToListAsync();
+            var data = await _context.CostCenter
+                .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<CostCenter>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-            var data = await _context.CostCenter.ToListAsync();
+            var data = await _context.CostCenter
+                 .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<CostCenter>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexCostCenters", viewModel);
+            return PartialView("_PartialIndexCostCenters", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.CostCenter.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.CostCenter
+        //        .Where(x => x.Name.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<CostCenter>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexCostCenters", viewModel);
+        //}
 
         // GET: CostCenters/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -92,8 +84,6 @@ namespace SystemFH.Controllers
         }
 
         // POST: CostCenters/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] CostCenter costCenter)

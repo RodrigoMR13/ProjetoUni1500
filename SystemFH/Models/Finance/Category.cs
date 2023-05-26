@@ -9,5 +9,8 @@ namespace SystemFH.Models
         public int Id { get; set; }
         [DisplayName("Categoria")]
         public string Name { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
     }
 }

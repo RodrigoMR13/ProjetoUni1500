@@ -59,6 +59,8 @@ namespace SystemFH.Models
         [DisplayName("Valor Final")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         public float FinalValue { get; set; }
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
 
         public List<DayTime> DayTimes { get; set; }
 

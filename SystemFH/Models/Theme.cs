@@ -14,7 +14,10 @@ namespace SystemFH.Models
 		public string Name { get; set; }
         [DisplayName("Descrição")]
         public string Description { get; set; } = string.Empty;
-		
-		public List<Learning> Learnings { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
+
+        public List<Learning> Learnings { get; set; }
 	}
 }

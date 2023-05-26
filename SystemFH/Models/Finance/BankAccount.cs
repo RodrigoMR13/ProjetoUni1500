@@ -21,6 +21,9 @@ namespace SystemFH.Models
         [DisplayName("Saldo Atual")]
         public float ActualBalance { get; set; }
 
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
+
         public List<CashManager> CashManagers { get; set; }
 
         public void AttCalculos()

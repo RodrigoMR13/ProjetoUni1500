@@ -13,5 +13,8 @@ namespace SystemFH.Models
         [DisplayName("Telefone/Celular")]
         public string Phone { get; set; }
         public string Email { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
     }
 }

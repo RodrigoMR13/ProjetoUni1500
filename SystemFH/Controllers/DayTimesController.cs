@@ -22,57 +22,67 @@ namespace SystemFH.Controllers
         }
 
         // GET: DayTimes
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
+            var user = await _context.People
+                .Where(x => x.Name == User.Identity.Name)
+                .FirstOrDefaultAsync();
+
             var data = await _context.DayTime
                 .Include(d => d.ActualStatus)
-                .ToListAsync();
-
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = await _context.DayTime
-                .Skip(correctNumber)
-                .Take(pageSize)
+                .Where(d => d.ActualStatus.CircleId == user.CircleId)
                 .Include(d => d.ActualStatus)
+                .ThenInclude(d => d.Project)
+                .Include(d => d.ActualStatus)
+                .ThenInclude(d => d.Person)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<DayTime>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
+            var user = await _context.People
+                .Where(x => x.Name == User.Identity.Name)
+                .FirstOrDefaultAsync();
+
             var data = await _context.DayTime
-                .Include(d => d.ActualStatus)
-                .ToListAsync();
+               .Include(d => d.ActualStatus)
+               .Where(d => d.ActualStatus.CircleId == user.CircleId)
+               .Include(d => d.ActualStatus)
+               .ThenInclude(d => d.Project)
+               .Include(d => d.ActualStatus)
+               .ThenInclude(d => d.Person)
+               .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = await _context.DayTime
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .Include(d => d.ActualStatus)
-                .ToListAsync();
-
-            var viewModel = new PaginationViewModel<DayTime>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView(viewModel);
+            return PartialView("_PartialIndexDayTimes", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.DayTime.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.DayTime
+        //        .Where(x => x.ActualStatus.Description.Contains(searchValue.ToLower())
+        //                    || x.ActualStatus.Description.Contains(searchValue.ToLower())
+        //                    || x.Data.ToString().Contains(searchValue.ToLower())
+        //                    || x.RealTime.ToString().Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .Include(d => d.ActualStatus)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<DayTime>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexDayTimes", viewModel);
+        //}
 
         // GET: DayTimes/Details/5
         public async Task<IActionResult> Details(int? id)

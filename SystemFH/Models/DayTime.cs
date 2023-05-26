@@ -19,5 +19,8 @@ namespace SystemFH.Models
         public float RealTime { get; set; }
         [DisplayName("Finalizado")]
         public bool Delivered { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
     }
 }

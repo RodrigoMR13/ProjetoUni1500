@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SystemFH.Data;
-using SystemFH.Models;
 
 namespace SystemFH.Controllers
 {
@@ -22,104 +21,42 @@ namespace SystemFH.Controllers
         }
 
         // GET: People
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
             var data = await _context.People
                 .Include(p => p.Circle)
                 .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = await _context.People
-                .Include(p => p.Circle)
-                .ToListAsync();
-
-            var viewModel = new PaginationViewModel<Person>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
             var data = await _context.People
                 .Include(p => p.Circle)
                 .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = await _context.People
-                .Include(p => p.Circle)
-                .ToListAsync();
-
-            var viewModel = new PaginationViewModel<Person>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexPeople", viewModel);
+            return PartialView("_PartialIndexPeople", data);
         }
 
-        public async Task<IActionResult> Aluno(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> Aluno()
         {
             var dataAluno = await _context.People
                 .Where(x => x.Type == TypePerson.Mentorado)
                 .Include(p => p.Circle)
                 .ToListAsync();
 
-            int totalCount = dataAluno.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            dataAluno = await _context.People
-                .Where(x => x.Type == TypePerson.Mentorado)
-                .Include(p => p.Circle)
-                .ToListAsync();
-
-            var viewModelAluno = new PaginationViewModel<Person>
-            {
-                Items = dataAluno,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View("Index", viewModelAluno);
+            return View("Index", dataAluno);
         }
 
-        public async Task<IActionResult> Professor(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> Professor()
         {
             var dataProfessor = await _context.People
                 .Where(x => x.Type == TypePerson.Mentor)
                 .Include(p => p.Circle)
                 .ToListAsync();
 
-            int totalCount = dataProfessor.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            dataProfessor = await _context.People
-                .Where(x => x.Type == TypePerson.Mentor)
-                .Include(p => p.Circle)
-                .ToListAsync();
-
-            var viewModelProfessor = new PaginationViewModel<Person>
-            {
-                Items = dataProfessor,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View("Index", viewModelProfessor);
+            return View("Index", dataProfessor);
         }
 
         // GET: People/Details/5
@@ -141,7 +78,35 @@ namespace SystemFH.Controllers
             return View(person);
         }
 
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.People.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.People
+        //        .Where(x => x.Circle.Name.Contains(searchValue.ToLower())
+        //                    || x.Type.ToString().Contains(searchValue.ToLower())
+        //                    || x.Name.Contains(searchValue.ToLower())
+        //                    || x.Email.Contains(searchValue.ToLower())
+        //                    || x.Phone.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .Include(p => p.Circle)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Person>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexPeople", viewModel);
+        //}
+
         // GET: People/Create
+
         public IActionResult Create()
         {
             ViewData["CircleId"] = new SelectList(_context.Circles, "Id", "Name");

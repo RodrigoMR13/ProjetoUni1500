@@ -1,4 +1,4 @@
-﻿@model PaginationViewModel<Enterprise>
+﻿@model IEnumerable<Enterprise>
 
 @{
     ViewData["Title"] = "Empresas";
@@ -6,6 +6,12 @@
 <div class="col-md card border border-primary">
     <div class="card-header">
         <h1>Empresas / <a style="font-size:25px" asp-action="Create">Nova</a></h1> 
+        @*<div class="input-group" style="width:360px">
+            <input class="form-control form-control-md" type="search" id="filterData" placeholder="Faça sua busca aqui" />
+            <button id="searchButton" type="submit" class="btn btn-md btn-default">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>*@
     </div>
     <div id="container" style="margin:8px">
         <partial name="_PartialIndexEnterprises" />
@@ -19,6 +25,37 @@
     }
 
     <script>
+
+        function refreshTable(pageNumber, pageSize) {
+            $.ajax({
+                url: '@Url.Action("PartialIndex", "Enterprises")',
+                type: 'GET',
+                data: { pageNumber: pageNumber, pageSize: pageSize },
+                success: function (data) {
+                    $("#container").html(data);
+                    initialFunction();
+                },
+                error: function () {
+                    alert("Um erro ocorreu ao tentar atualizar a tabela")
+                }
+            });
+        }
+
+        function changePageSize(pageSize) {
+            $.ajax({
+                url: '@Url.Action("PartialIndex", "Enterprises")',
+                type: 'GET',
+                data: { pageSize: pageSize },
+                success: function (data) {
+                    $("#container").html(data);
+                    initialFunction();
+                },
+                error: function () {
+                    alert("Um erro ocorreu ao tentar atualizar a tabela")
+                }
+            });
+        }
+
         function initialFunction() {
             $("#checkCentral").click(function () {
                 //Verifica se o botão que possui o id checkCentral foi pressionado
@@ -82,44 +119,39 @@
                 }
             });
 
-            $("#pageSizeSelect").on("change", function () {
-                var pageSize = $(this).val();
-                changePageSize(pageSize);
-            });
+            //$("#pageSizeSelect").on("change", function () {
+            //    var pageSize = $(this).val();
+            //    changePageSize(pageSize);
+            //});
+
+            ////Search Data
+            //$("#searchButton").on("click", function () {
+            //    var pageSize = $("#pageSizeSelect").val();
+            //    var searchValue = $("#filterData").val();
+            //    const table = $.ajax({
+            //        url: '@Url.Action("Search", "Enterprises")',
+            //        type: 'GET',
+            //        data: { searchValue: searchValue, pageSize: pageSize },
+            //        success: function (data) {
+            //            $("#container").html(data);
+            //            initialFunction();
+            //        },
+            //        error: function () {
+            //            if (searchValue == "") {
+            //                refreshTable(1, pageSize);
+            //            }
+            //            else {
+            //                alert("um erro ocorreu ao tentar buscar este(s) registro(s).")
+            //            }
+            //        }
+            //    });
+            //});
         }
 
         $(document).ready(function () {
             initialFunction();
+            let table = new DataTable("#myTable")
         });
 
-        function refreshTable(pageNumber, pageSize) {
-            $.ajax({
-                url: '@Url.Action("PartialIndex", "Enterprises")',
-                type: 'GET',
-                data: { pageNumber: pageNumber, pageSize: pageSize },
-                success: function (data) {
-                    $("#container").html(data);
-                    initialFunction();
-                },
-                error: function () {
-                    alert("Um erro ocorreu ao tentar atualizar a tabela")
-                }
-            });
-        }
-
-        function changePageSize(pageSize) {
-            $.ajax({
-                url: '@Url.Action("PartialIndex", "Enterprises")',
-                type: 'GET',
-                data: { pageSize: pageSize },
-                success: function (data) {
-                    $("#container").html(data);
-                    initialFunction();
-                },
-                error: function () {
-                    alert("Um erro ocorreu ao tentar atualizar a tabela")
-                }
-            });
-        }
     </script>
 }

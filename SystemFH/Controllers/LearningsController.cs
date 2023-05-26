@@ -22,57 +22,65 @@ namespace SystemFH.Controllers
         }
 
         // GET: Learnings
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-
-            int totalCount = _context.Learnings.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
             var data = await _context.Learnings
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(l => l.Circle)
                 .Include(l => l.Theme)
                 .Include(l => l.PeopleLearning)
                 .ThenInclude(l => l.Person)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Learning>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-
-            int totalCount = _context.Learnings.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
             var data = await _context.Learnings
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(l => l.Circle)
                 .Include(l => l.Theme)
                 .Include(l => l.PeopleLearning)
                 .ThenInclude(l => l.Person)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Learning>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexLearnings", viewModel);
+            return PartialView("_PartialIndexLearnings", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+
+        //    int totalCount = _context.Learnings.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.Learnings
+        //        .Where(x => x.Circle.Name.Contains(searchValue.ToLower())
+        //                    || x.Theme.Name.Contains(searchValue.ToLower())
+        //                    || x.StudentPerson.Name.Contains(searchValue.ToLower())
+        //                    || x.OportunityLearning.Contains(searchValue.ToLower())
+        //                    || x.LearningAction.Contains(searchValue.ToLower())
+        //                    || x.MeasurementDate.ToString().Contains(searchValue.ToLower())
+        //                    || x.MeasurementForm.ToString().Contains(searchValue.ToLower())
+        //                    || x.Result.Contains(searchValue.ToLower())
+        //                    || x.Comment.Contains(searchValue.ToLower())
+        //                    || x.Status.ToString().Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .Include(l => l.Circle)
+        //        .Include(l => l.Theme)
+        //        .Include(l => l.PeopleLearning)
+        //        .ThenInclude(l => l.Person)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Learning>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexLearnings", viewModel);
+        //}
 
         // GET: Learnings/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -73,13 +73,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="">
+                        <div class="col-md-6">
                             <label asp-for="Type" class="control-label"></label>
                             <select asp-for="Type" class="form-control">
                                 <option value="0">Recebimento</option>
                                 <option value="1">Pagamento</option>
                             </select>
                             <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PlanReal" class="control-label"></label>
+                            <select asp-for="PlanReal" class="form-control">
+                                <option value="0">Planejado</option>
+                                <option value="1">Real</option>
+                            </select>
+                            <span asp-validation-for="PlanReal" class="text-danger"></span>
                         </div>
                     </div>
                     <hr class="border border-primary border-3 opacity-75" />

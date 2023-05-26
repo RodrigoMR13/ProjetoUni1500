@@ -21,51 +21,44 @@ namespace SystemFH.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            var data = await _context.Categories.ToListAsync();
+            var data = await _context.Categories
+                .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Category>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-            var data = await _context.Categories.ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
+            var data = await _context.Categories
+               .ToListAsync();
 
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Category>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexCategories", viewModel);
+            return PartialView("_PartialIndexCategories", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.Categories.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.Categories
+        //        .Where(x => x.Name.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Category>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexCategories", viewModel);
+        //}
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)

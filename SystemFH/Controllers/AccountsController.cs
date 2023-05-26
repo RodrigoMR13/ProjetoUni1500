@@ -21,51 +21,47 @@ namespace SystemFH.Controllers
         }
 
         // GET: Accounts
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            var data = await _context.Account.ToListAsync();
+            var user = await _context.People
+                .Where(x => x.Name == User.Identity.Name)
+                .FirstOrDefaultAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
+            var data = await _context.Account
+                .ToListAsync();
 
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Account>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 10)
+        public async Task<ActionResult> PartialIndex()
         {
-            var data = await _context.Account.ToListAsync();
+            var data = await _context.Account
+                .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Account>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexAccounts", viewModel);
+            return PartialView("_PartialIndexAccounts", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.Account.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.Account
+        //        .Where(x => x.Name.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+                          
+        //    var viewModel = new PaginationViewModel<Account>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexAccounts", viewModel);
+        //}
 
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -92,14 +88,18 @@ namespace SystemFH.Controllers
         }
 
         // POST: Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Account account)
         {
             if (ModelState.IsValid)
             {
+                var user = await _context.People
+                    .Where(x => x.Name == User.Identity.Name)
+                    .FirstOrDefaultAsync();
+
+                account.UserId = user.Id;
+
                 _context.Add(account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

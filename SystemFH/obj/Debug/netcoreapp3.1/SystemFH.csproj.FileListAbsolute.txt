@@ -530,3 +530,5 @@ C:\Users\rodri\source\repos\SystemFH\SystemFH\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\rodri\source\repos\SystemFH\SystemFH\obj\Debug\netcoreapp3.1\Razor\Views\Projects\_PartialIndexProjects.cshtml.g.cs
 C:\Users\rodri\source\repos\SystemFH\SystemFH\obj\Debug\netcoreapp3.1\Razor\Views\Themes\_PartialIndexThemes.cshtml.g.cs
 C:\Users\rodri\source\repos\SystemFH\SystemFH\obj\Debug\netcoreapp3.1\Razor\Views\TypeConsultors\_PartialIndexTypeConsultors.cshtml.g.cs
+C:\Users\rodri\source\repos\SystemFH\SystemFH\obj\Debug\netcoreapp3.1\Razor\Views\CashManagers\Copy.cshtml.g.cs
+C:\Users\rodri\source\repos\SystemFH\SystemFH\obj\Debug\netcoreapp3.1\Razor\Views\CashManagers\Bill.cshtml.g.cs

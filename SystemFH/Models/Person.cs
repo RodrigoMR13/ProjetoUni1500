@@ -37,6 +37,9 @@ public class Person : IdentityUser<int>
     public bool Recommendation { get; set; }
     [DisplayName("Está Estudando?")]
     public bool IsStudying { get; set; }
+
+    [DisplayName("Inserido Por:")]
+    public int UserId { get; set; }
 }
 
 public enum TypePerson

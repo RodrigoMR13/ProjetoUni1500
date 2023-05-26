@@ -27,6 +27,9 @@ namespace SystemFH.Models
         [DisplayName("Comentário")]
         public string Comment { get; set; }
 
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
+
         public List<PersonFeedback> PersonFeedbacks { get; set; }
 
         [NotMapped]

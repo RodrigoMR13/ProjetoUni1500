@@ -21,51 +21,46 @@ namespace SystemFH.Controllers
         }
 
         // GET: Enterprises
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            var data = await _context.Enterprise.ToListAsync();
+            var data = await _context.Enterprise
+                .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Enterprise>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-            var data = await _context.Enterprise.ToListAsync();
+            var data = await _context.Enterprise
+                .ToListAsync();
 
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Enterprise>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexEnterprises", viewModel);
+            return PartialView("_PartialIndexEnterprises", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.Enterprise.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.Enterprise
+        //        .Where(x => x.Name.Contains(searchValue.ToLower())
+        //                    || x.CNPJ.Contains(searchValue.ToLower())
+        //                    || x.Phone.Contains(searchValue.ToLower())
+        //                    || x.Email.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Enterprise>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexEnterprises", viewModel);
+        //}
 
         // GET: Enterprises/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -1,0 +1,122 @@
+﻿@model SystemFH.Models.CashManager
+
+@{
+    ViewData["Title"] = "Copy";
+}
+<div class="col-md card border border-primary">
+    <div style="margin:8px">
+        <h1>Copiar</h1>
+        <h4>Gestão de Caixa</h4>
+        <hr class="border border-primary border-3 opacity-75" />
+        <div class="row">
+            <div class="col-md">
+                <form asp-action="Copy">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row">
+                        <div class="col-md">
+                            <label asp-for="NumberCopy" class="control-label"></label>
+                            <input asp-for="NumberCopy" class="form-control" />
+                            <span asp-validation-for="NumberCopy" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="RealizationDate" class="control-label"></label>
+                            <input asp-for="RealizationDate" class="form-control" type="date" value="@(Model.RealizationDate.ToString("yyyy-MM-dd"))" readonly/>
+                            <span asp-validation-for="RealizationDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="CashDate" class="control-label"></label>
+                            <input asp-for="CashDate" class="form-control" type="date" value="@(Model.CashDate.ToString("yyyy-MM-dd"))" readonly />
+                            <span asp-validation-for="CashDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="CompetMonth" class="control-label"></label>
+                            <input asp-for="CompetMonth" class="form-control" type="date" value="@(Model.CompetMonth.ToString("yyyy-MM-dd"))" readonly />
+                            <span asp-validation-for="CompetMonth" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="EnterpriseId" class="control-label"></label>
+                            <select asp-for="EnterpriseId" class="form-control" asp-items="ViewBag.EnterpriseId" readonly></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="CostCenterId" class="control-label"></label>
+                            <select asp-for="CostCenterId" class="form-control" asp-items="ViewBag.CostCenterId" readonly></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="AccountId" class="control-label"></label>
+                            <select asp-for="AccountId" class="form-control" asp-items="ViewBag.AccountId" readonly></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="PersonId" class="control-label"></label>
+                            <select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId" readonly></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="BankAccountId" class="control-label"></label>
+                            <select asp-for="BankAccountId" class="form-control" asp-items="ViewBag.BankAccountId" readonly></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId" readonly></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control" readonly />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Value" class="control-label"></label>
+                            <input asp-for="Value" class="form-control" value="@Model.Value.ToString().Replace("R$", "").Replace(".", "").Replace(",", "")" readonly />
+                            <span asp-validation-for="Value" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3 form-check" style="padding-top:2.5rem; padding-left:2.25rem">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="Comp" readonly /> @Html.DisplayNameFor(model => model.Comp)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="Type" class="control-label"></label>
+                            <select asp-for="Type" class="form-control" readonly>
+                                <option value="0">Recebimento</option>
+                                <option value="1">Pagamento</option>
+                            </select>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PlanReal" class="control-label"></label>
+                            <select asp-for="PlanReal" class="form-control" >
+                                <option value="0">Planejado</option>
+                                <option value="1">Real</option>
+                            </select>
+                            <span asp-validation-for="PlanReal" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr class="border border-primary border-3 opacity-75" />
+                    <div class="col-md">
+                        <div class="row">
+                            <input type="submit" value="Salvar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <hr class="border border-primary border-3 opacity-75" />
+                </form>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

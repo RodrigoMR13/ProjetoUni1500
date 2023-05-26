@@ -21,70 +21,42 @@ namespace SystemFH.Controllers
         }
 
         // GET: Circles
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            var data = await _context.Circles.ToListAsync();
-
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Circle>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
-        }
-
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
-        {
-            var data = await _context.Circles.ToListAsync();
-
-            int totalCount = data.Count;
-            int correctNumber = (pageNumber - 1) * pageSize;
-            data = data
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .ToList();
-
-            var viewModel = new PaginationViewModel<Circle>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexCircles", viewModel);
-        }
-
-        public async Task<ActionResult> Search(int pageNumber = 1)
-        {
-            int totalCount = _context.Circles.Count();
-            int pageSize = _context.Circles.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
             var data = await _context.Circles
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Circle>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexCircles", viewModel);
+            return View(data);
         }
+
+        public async Task<ActionResult> PartialIndex()
+        {
+            var data = await _context.Circles
+                .ToListAsync();
+
+            return PartialView("_PartialIndexCircles", data);
+        }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.Circles.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+        //    var data = await _context.Circles
+        //        .Where(x => x.Name.Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Circle>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexCircles", viewModel);
+        //}
 
         // GET: Circles/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -111,8 +83,6 @@ namespace SystemFH.Controllers
         }
 
         // POST: Circles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Circle circle)

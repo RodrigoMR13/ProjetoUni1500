@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SystemFH.Models
 {
@@ -53,7 +54,7 @@ namespace SystemFH.Models
         [DisplayName("Valor")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         public float Value { get; set; }
-        [DisplayName("Pago")]
+        [DisplayName("Compensado")]
         public bool Comp { get; set; }
         [DisplayName("Saldo do Banco")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
@@ -61,7 +62,17 @@ namespace SystemFH.Models
         [DisplayName("Saldo da Empresa")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         public float EnterpriseBalance { get; set; }
+        [DisplayName("Tipo")]
         public Type Type { get; set; }
+        [DisplayName("Plan/Real")]
+        public PlanReal PlanReal { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
+
+        [NotMapped]
+        [DisplayName("Número de Cópias")]
+        public int NumberCopy { get; set; }
 
         public void AttCalculos()
         {
@@ -74,5 +85,10 @@ namespace SystemFH.Models
     {
         Recebimento,
         Pagamento
+    }
+    public enum PlanReal
+    {
+        Planejado,
+        Real
     }
 }

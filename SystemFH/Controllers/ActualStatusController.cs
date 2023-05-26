@@ -22,7 +22,7 @@ namespace SystemFH.Controllers
         }
 
         // GET: ActualStatus
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
             var data = await _context.ActualStatus
                 .Include(a => a.Circle)
@@ -31,30 +31,18 @@ namespace SystemFH.Controllers
                 .Include(a => a.TypeConsultor)
                 .ToListAsync();
 
-            int totalCount = data.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-   
-            data = await _context.ActualStatus
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .Include(a => a.Circle)
-                .Include(a => a.Person)
-                .Include(a => a.Project)
-                .Include(a => a.TypeConsultor)
-                .ToListAsync();
+            //var viewModel = new PaginationViewModel<ActualStatus>
+            //{
+            //    Items = data,
+            //    PageNumber = pageNumber,
+            //    PageSize = pageSize,
+            //    TotalCount = totalCount
+            //};
 
-            var viewModel = new PaginationViewModel<ActualStatus> 
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
             var data = await _context.ActualStatus
                 .Include(a => a.Circle)
@@ -63,28 +51,43 @@ namespace SystemFH.Controllers
                 .Include(a => a.TypeConsultor)
                 .ToListAsync();
 
-            int totalCount = data.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
-            data = await _context.ActualStatus
-                .Skip(correctNumber)
-                .Take(pageSize)
-                .Include(a => a.Circle)
-                .Include(a => a.Person)
-                .Include(a => a.Project)
-                .Include(a => a.TypeConsultor)
-                .ToListAsync();
-
-            var viewModel = new PaginationViewModel<ActualStatus>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexActualStatus", viewModel);
+            return PartialView("_PartialIndexActualStatus", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.ActualStatus.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+        //    var data = await _context.ActualStatus
+        //        .Include(a => a.Circle)
+        //        .Include(a => a.Person)
+        //        .Include(a => a.Project)
+        //        .Include(a => a.TypeConsultor)
+        //        .Where(x => x.Description.Contains(searchValue.ToLower())
+        //        || x.Circle.Name.Contains(searchValue.ToLower())
+        //        || x.Project.Name.Contains(searchValue.ToLower())
+        //        || x.TypeConsultor.Name.Contains(searchValue.ToLower())
+        //        || x.TimePlanned.ToString().Contains(searchValue.ToLower())
+        //        || x.Value.ToString().Contains(searchValue.ToLower())
+        //        || x.Person.Name.Contains(searchValue.ToLower())
+        //        || x.RealTime.ToString().Contains(searchValue.ToLower())
+        //        || x.Productivity.ToString().Contains(searchValue.ToLower())
+        //        || x.Sprint.ToString().Contains(searchValue.ToLower())
+        //        || x.FinalValue.ToString().Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<ActualStatus>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexActualStatus", viewModel);
+        //}
 
         // GET: ActualStatus/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -126,6 +129,10 @@ namespace SystemFH.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _context.People
+                    .Where(x => x.Name == User.Identity.Name)
+                    .FirstOrDefaultAsync();
+
                 var projeto = await _context.Project
                     .Where(x => x.Id == actualStatus.ProjectId)
                     .FirstOrDefaultAsync();
@@ -136,6 +143,7 @@ namespace SystemFH.Controllers
 
                 actualStatus.Project = projeto;
                 actualStatus.TypeConsultor = consultor;
+                actualStatus.UserId = user.Id;
 
                 actualStatus.AttCalculos();
 

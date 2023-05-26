@@ -36,6 +36,9 @@ namespace SystemFH.Models
         [DisplayName("Situação")]
         public bool Status { get; set; }
 
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
+
         public void AttCalculos()
         {
             if (this.Type == TypeTime.PrecoFechado)

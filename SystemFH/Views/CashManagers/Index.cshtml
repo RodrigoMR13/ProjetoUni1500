@@ -1,4 +1,4 @@
-﻿@model PaginationViewModel<CashManager>
+﻿@model IEnumerable<CashManager>
 
 @{
     ViewData["Title"] = "Gestão de Caixa";
@@ -6,6 +6,12 @@
 <div class="col-md card border border-primary">
     <div class="card-header">
         <h1>Gestão de Caixa / <a style="font-size:25px" asp-action="Create">Novo</a></h1>
+        @*<div class="input-group" style="width:360px">
+            <input class="form-control form-control-md" type="search" id="filterData" placeholder="Faça sua busca aqui" />
+            <button id="searchButton" type="submit" class="btn btn-md btn-default">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>*@
     </div>
     <div id="container" style="margin:8px">
         <partial name="_PartialIndexCashManager" />
@@ -19,6 +25,37 @@
     }
 
     <script>
+
+        function refreshTable(pageNumber, pageSize) {
+            $.ajax({
+                url: '@Url.Action("PartialIndex", "CashManagers")',
+                type: 'GET',
+                data: { pageNumber: pageNumber, pageSize: pageSize },
+                success: function (data) {
+                    $("#container").html(data);
+                    initialFunction();
+                },
+                error: function () {
+                    alert("Um erro ocorreu ao tentar atualizar a tabela")
+                }
+            });
+        }
+
+        function changePageSize(pageSize) {
+            $.ajax({
+                url: '@Url.Action("PartialIndex", "CashManagers")',
+                type: 'GET',
+                data: { pageSize: pageSize },
+                success: function (data) {
+                    $("#container").html(data);
+                    initialFunction();
+                },
+                error: function () {
+                    alert("Um erro ocorreu ao tentar atualizar a tabela")
+                }
+            });
+        }
+
         function initialFunction() {
             $("#checkCentral").click(function () {
                 //Verifica se o botão que possui o id checkCentral foi pressionado
@@ -72,7 +109,7 @@
                                 location.reload()
                             },
                             error: function () {
-                                alert("Um erro ocorreu ao tentar deletar estes(s) registro(s).")
+                                alert("Um erro ocorreu ao tentar deletar este(s) registro(s).")
                             }
                         });
                     }
@@ -82,44 +119,67 @@
                 }
             });
 
-            $("#pageSizeSelect").on("change", function () {
-                var pageSize = $(this).val();
-                changePageSize(pageSize);
-            });
+            ////Função copiar
+            //$("#botaoCopiar").click(function () {
+            //    var idsSelecionados = $("input[name='checkSelect']:checked").map(function () {
+            //        return $(this).val();
+            //    }).get();
+
+            //    if (idsSelecionados.length == 1) {
+            //        if (confirm("Você tem certeza de que deseja copiar este registro?")) {
+            //            $.ajax({
+            //                url: '@Url.Action("Copy", "CashManagers")',
+            //                type: 'GET',
+            //                data: {},
+            //                success: function () {
+            //                    location.reload()
+            //                },
+            //                error: function () {
+            //                    alert("Um erro ocorreu ao tentar copiar este registro.")
+            //                }
+            //            });
+            //        }
+            //    }
+            //    else if (idsSelecionados == 0) {
+            //        alert("Por favor, selecione pelo menos um item para ser copiado")
+            //    }
+            //    else {
+            //        alert("Por favor, selecione apenas um item para ser copiado")
+            //    }
+            //});
+
+            //$("#pageSizeSelect").on("change", function () {
+            //    var pageSize = $(this).val();
+            //    changePageSize(pageSize);
+            //});
+
+            //$("#searchButton").on("click", function () {
+            //    var pageSize = $("#pageSizeSelect").val();
+            //    var searchValue = $("#filterData").val();
+            //    const table = $.ajax({
+            //        url: '@Url.Action("Search", "CashManagers")',
+            //        type: 'GET',
+            //        data: { searchValue: searchValue, pageSize: pageSize },
+            //        success: function (data) {
+            //            $("#container").html(data);
+            //            initialFunction();
+            //        },
+            //        error: function () {
+            //            if (searchValue == "") {
+            //                refreshTable(1, pageSize);
+            //            }
+            //            else {
+            //                alert("um erro ocorreu ao tentar buscar este(s) registro(s).")
+            //            }
+            //        }
+            //    });
+            //});
         }
 
         $(document).ready(function () {
             initialFunction();
+            let table = new DataTable("#myTable");
         });
 
-        function refreshTable(pageNumber, pageSize) {
-            $.ajax({
-                url: '@Url.Action("PartialIndex", "CashManagers")',
-                type: 'GET',
-                data: { pageNumber: pageNumber, pageSize: pageSize },
-                success: function (data) {
-                    $("#container").html(data);
-                    initialFunction();
-                },
-                error: function () {
-                    alert("Um erro ocorreu ao tentar atualizar a tabela")
-                }
-            });
-        }
-
-        function changePageSize(pageSize) {
-            $.ajax({
-                url: '@Url.Action("PartialIndex", "CashManagers")',
-                type: 'GET',
-                data: { pageSize: pageSize },
-                success: function (data) {
-                    $("#container").html(data);
-                    initialFunction();
-                },
-                error: function () {
-                    alert("Um erro ocorreu ao tentar atualizar a tabela")
-                }
-            });
-        }
     </script>
 }

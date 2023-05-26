@@ -39,8 +39,11 @@ namespace SystemFH.Models
         public string Comment { get; set; }
         [DisplayName("Situação")]
         public Status Status { get; set; }
-		
-		public List<PersonLearning> PeopleLearning { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
+
+        public List<PersonLearning> PeopleLearning { get; set; }
 
 		[NotMapped]
         [DisplayName("Aluno")]

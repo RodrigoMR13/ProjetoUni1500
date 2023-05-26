@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SystemFH.Data;
 using SystemFH.Models;
@@ -22,45 +21,43 @@ namespace SystemFH.Controllers
         }
 
         // GET: TypeConsultors
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-            int totalCount = _context.TypeConsultors.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
             var data = await _context.TypeConsultors
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<TypeConsultor>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-            int totalCount = _context.TypeConsultors.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
             var data = await _context.TypeConsultors
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<TypeConsultor>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexTypeConsultors", viewModel);
+            return PartialView("_PartialIndexTypeConsultors", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.TypeConsultors.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+        //    var data = await _context.TypeConsultors
+        //        .Where(x => x.Name.Contains(searchValue.ToLower())
+        //                    || x.Fee.ToString().Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<TypeConsultor>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexTypeConsultors", viewModel);
+        //}
 
         // GET: TypeConsultors/Details/5
         public async Task<IActionResult> Details(int? id)

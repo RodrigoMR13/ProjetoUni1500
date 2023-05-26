@@ -22,57 +22,62 @@ namespace SystemFH.Controllers
         }
 
         // GET: Feedbacks
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> Index()
         {
-
-            int totalCount = _context.Feedbacks.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
             var data = await _context.Feedbacks
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(f => f.Circle)
                 .Include(f => f.Theme)
                 .Include(f => f.PersonFeedbacks)
                 .ThenInclude(f => f.Person)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Feedback>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return View(viewModel);
+            return View(data);
         }
 
-        public async Task<ActionResult> PartialIndex(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> PartialIndex()
         {
-
-            int totalCount = _context.Feedbacks.Count();
-            int correctNumber = (pageNumber - 1) * pageSize;
-
             var data = await _context.Feedbacks
-                .Skip(correctNumber)
-                .Take(pageSize)
                 .Include(f => f.Circle)
                 .Include(f => f.Theme)
                 .Include(f => f.PersonFeedbacks)
                 .ThenInclude(f => f.Person)
                 .ToListAsync();
 
-            var viewModel = new PaginationViewModel<Feedback>
-            {
-                Items = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalCount = totalCount
-            };
-
-            return PartialView("_PartialIndexFeedbacks", viewModel);
+            return PartialView("_PartialIndexFeedbacks", data);
         }
+
+        //public async Task<ActionResult> Search(int pageNumber = 1, int pageSize = 5, string searchValue = "")
+        //{
+        //    int totalCount = _context.Feedbacks.Count();
+        //    int correctNumber = (pageNumber - 1) * pageSize;
+
+        //    var data = await _context.Feedbacks
+        //        .Where(x => x.Date.ToString().Contains(searchValue.ToLower())
+        //                    || x.Circle.Name.Contains(searchValue.ToLower())
+        //                    || x.Theme.Name.Contains(searchValue.ToLower())
+        //                    || x.StudentPerson.Name.Contains(searchValue.ToLower())
+        //                    || x.TeacherPerson.Name.Contains(searchValue.ToLower())
+        //                    || x.OportunityLearning.ToString().Contains(searchValue.ToLower())
+        //                    || x.Note.ToString().Contains(searchValue.ToLower())
+        //                    || x.Comment.ToString().Contains(searchValue.ToLower()))
+        //        .Skip(correctNumber)
+        //        .Take(pageSize)
+        //        .Include(f => f.Circle)
+        //        .Include(f => f.Theme)
+        //        .Include(f => f.PersonFeedbacks)
+        //        .ThenInclude(f => f.Person)
+        //        .ToListAsync();
+
+        //    var viewModel = new PaginationViewModel<Feedback>
+        //    {
+        //        Items = data,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalCount = totalCount
+        //    };
+
+        //    return PartialView("_PartialIndexFeedbacks", viewModel);
+        //}
 
         // GET: Feedbacks/Details/5
         public async Task<IActionResult> Details(int? id)

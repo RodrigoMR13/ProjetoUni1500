@@ -12,5 +12,8 @@ namespace SystemFH.Models
         public string Name { get; set; }
         [DisplayName("Valor Tarifa")]
         public float Fee { get; set; }
+
+        [DisplayName("Inserido Por:")]
+        public int UserId { get; set; }
     }
 }
